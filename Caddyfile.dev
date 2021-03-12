@@ -10,7 +10,7 @@
     }
 }
 
-{$SERVER_NAME:localhost}
+:{:$PORT}
 
 log
 
