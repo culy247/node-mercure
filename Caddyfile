@@ -1,7 +1,7 @@
 # Learn how to configure the Mercure.rocks Hub on https://mercure.rocks/docs/hub/config
 {
     # Debug mode (disable it in production!)
-    {$DEBUG:debug}
+    {$DEBUG}
     # HTTP/3 support
     servers {
         protocol {
@@ -10,27 +10,20 @@
     }
 }
 
-localhost
+{$SERVER_NAME:localhost}
 
 log
 
 route {
-    redir / /.well-known/mercure/ui/
     encode zstd gzip
 
     mercure {
         # Transport to use (default to Bolt)
-        transport_url bolt://mercure.db
+        transport_url {$MERCURE_TRANSPORT_URL:bolt://mercure.db}
         # Publisher JWT key
-        publisher_jwt !ChangeMe!
+        publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} {env.MERCURE_PUBLISHER_JWT_ALG}
         # Subscriber JWT key
-        subscriber_jwt !ChangeMe!
-        # Permissive configuration for the development environment
-        cors_origins *
-        publish_origins *
-        demo
-        anonymous
-        subscriptions
+        subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} {env.MERCURE_SUBSCRIBER_JWT_ALG}
         # Extra directives
         {$MERCURE_EXTRA_DIRECTIVES}
     }
