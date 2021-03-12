@@ -1,7 +1,7 @@
 const { Server } = require( 'mercure' );
 const config = require( "platformsh-config" ).config();
-const credentials = config.credentials( 'rediscache' );
-
+const credentials = config.credentials( 'redis' );
+console.log( config );
 const server = new Server( {
     jwtKey: '!UnsecureChangeMe!',
     path: '/.well-known/mercure',
