@@ -10,7 +10,7 @@
     }
 }
 
-:{:$PORT}
+localhost
 
 log
 
