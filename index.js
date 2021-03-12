@@ -4,5 +4,11 @@ const server = new Server( {
     jwtKey: '!UnsecureChangeMe!',
     path: '/.well-known/mercure',
 } );
-
-server.listen( PORT );
+try
+{
+    server.listen( PORT );
+    console.log( 'Server run with port: ' + PORT );
+} catch ( e )
+{
+    console.log( 'Server can not run with port: ' + PORT );
+}
