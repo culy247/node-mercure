@@ -1,1 +1,1 @@
-web: ADDR=":${PORT}" ./mercure run -config ./Caddyfile.dev
+web: ./mercure run -config ./Caddyfile.dev
