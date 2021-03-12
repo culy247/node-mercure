@@ -9,8 +9,8 @@
         }
     }
 }
-{$ADDR:3000}
-localhost
+
+{:$PORT, localhost:$PORT}
 
 log
 
