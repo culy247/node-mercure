@@ -1,1 +1,1 @@
-web: ./mercure run -port $PORT -config ./Caddyfile.dev
+web: ./mercure run -config ./Caddyfile.dev
