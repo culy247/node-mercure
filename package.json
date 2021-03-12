@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mercure": "^0.1.0"
+    "mercure": "^0.1.0",
+    "platformsh-config": "^2.4.1"
   }
 }
