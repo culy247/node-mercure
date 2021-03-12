@@ -1,7 +1,7 @@
 const { Server } = require( 'mercure' );
 const config = require( "platformsh-config" ).config();
 const credentials = config.credentials( 'redis' );
-console.log( config );
+console.log( config, credentials );
 const server = new Server( {
     jwtKey: '!UnsecureChangeMe!',
     path: '/.well-known/mercure',
@@ -11,4 +11,4 @@ const server = new Server( {
     }
 } );
 
-server.listen( config.port );
+server.listen( config.environmentVariables.PORT );
