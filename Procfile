@@ -1,1 +1,1 @@
-web: PORT=$PORT ./mercure run -config ./Caddyfile.dev
+web: PORT=$PORT ./bin/mercure run -config ./Caddyfile.dev
