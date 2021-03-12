@@ -2,6 +2,8 @@ module github.com/dunglas/mercure
 
 go 1.15
 
+// +heroku goVersion go1.15
+
 require (
 	github.com/OneOfOne/xxhash v1.2.8 // indirect
 	github.com/dgraph-io/ristretto v0.0.3
