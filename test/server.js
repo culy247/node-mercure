@@ -1,8 +1,8 @@
 const { Server, Publisher } = require( '../src' );
 
 const server = new Server( {
-  jwtKey: '!UnsecureChangeMe!',
-  path: '/rocket',
+  jwtKey: '!ChangeMe!',
+  path: '/hub',
   // Additional check for POST request made in a browser :
   publishAllowedOrigins: [ 'http://localhost:3000' ],
   allowAnonymous: true, // Don't force subscriber authorization.
