@@ -10,3 +10,4 @@ const server = new Server( {
 
 const port = parseInt( process.env.PORT || 3000 );
 server.listen( port );
+console.log( 'server listen on port: ' + port );
