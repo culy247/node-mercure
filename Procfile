@@ -1,1 +1,1 @@
-web: :PORT:$PORT ./mercure run -config ./Caddyfile.dev
+web: node index.js
