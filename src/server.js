@@ -18,7 +18,6 @@ function publishEndpointHandler ()
             claims = await hub.authorizePublish( req );
         } catch ( err )
         {
-            console.log( e );
             return res.status( 401 ).send( 'Unauthorized' );
         }
         if ( !claims )
@@ -57,7 +56,6 @@ function publishEndpointHandler ()
         if ( targets )
         {
             const targetsArray = Array.isArray( targets ) ? targets : [ targets ];
-            console.log( targetsArray, allTargetsAuthorized, authorizedTargets );
             // Checking if all targets are authorized.
             for ( const target of targetsArray )
             {

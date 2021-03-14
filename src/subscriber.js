@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require( 'uuid' );
+
 class Subscriber
 {
     constructor ( sseClient, allTargetsAuthorized, authorizedTargets, topics, lastEventId )
@@ -7,6 +9,12 @@ class Subscriber
         this.authorizedTargets = authorizedTargets;
         this.topics = topics; // URI templates (RFC 6570)
         this.lastEventId = lastEventId;
+        this.id = uuidv4();
+    }
+
+    getId ()
+    {
+        return this.id;
     }
 
     toValue ()
@@ -16,7 +24,8 @@ class Subscriber
             ip: this.sseClient.req.socket.localAddress,
             all: this.allTargetsAuthorized,
             last: this.lastEventId,
-            authorized: this.authorizedTargets
+            authorized: this.authorizedTargets,
+            id: this.id
         };
     }
 

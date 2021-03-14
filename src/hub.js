@@ -152,13 +152,15 @@ class Hub extends EventEmitter
         {
             await this.subscribers.delete( subscriber );
             this.emit( 'unsubscribe', subscriber );
+            this.dispatchUpdate( 'message', JSON.stringify( subscriber.toValue() ), { type: 'unsubscribe' } );
         } );
 
         this.emit( 'subscribe', subscriber );
-
+        this.dispatchUpdate( 'message', JSON.stringify( subscriber.toValue() ), { type: 'subscribe' } );
         if ( subscriber.lastEventId )
         {
             const updates = await this.history.findFor( subscriber );
+
             for ( const update of updates )
             {
                 subscriber.send( update );
