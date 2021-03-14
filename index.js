@@ -13,8 +13,8 @@ class App extends Server
 
 const server = new App( {
     jwtKey: process.env.JWT_KEY || '!ChangeMe!',
-    pubJwtKey: process.env.JWT_KEY || '!ChangeMe!',
-    subJwtKey: process.env.JWT_KEY || '!ChangeMe!',
+    //pubJwtKey: process.env.JWT_KEY || '!ChangeMe!',
+    //subJwtKey: process.env.JWT_KEY || '!ChangeMe!',
     path: process.env.HUB || '/hub',
     allowAnonymous: false, // Don't force subscriber authorization.
     maxTopics: 0,
