@@ -32,7 +32,7 @@ function validateConfig ( config )
   }
   if ( !validatedConfig.path )
   {
-    validatedConfig.path = '/rocket';
+    validatedConfig.path = '/.well-known/mercure';
   }
 
   // Validations

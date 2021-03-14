@@ -96,7 +96,6 @@ class Server
   constructor ( config = {} )
   {
     this.config = {
-      path: '/rocket',
       ...config
     };
     this.app = express();
@@ -115,7 +114,7 @@ class Server
 
   static createFromExpressApp ( app, config )
   {
-    app.post( '/rocket', publishEndpointHandler() );
+    app.post( config.path, publishEndpointHandler() );
 
     const server = http.Server( app );
 

@@ -10,8 +10,8 @@ class App extends Server
 }
 
 const server = new App( {
-    jwtKey: '!ChangeMe!',
-    path: '/rocket',
+    jwtKey: process.env.JWT_KEY || '!ChangeMe!',
+    path: '/hub',
     redis: {
         url: process.env.REDIS_DSN || ''
     }
