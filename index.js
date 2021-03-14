@@ -4,8 +4,7 @@ const server = new Server( {
     jwtKey: '!UnsecureChangeMe!',
     path: '/.well-known/mercure',
     redis: {
-        host: process.env.REDIS_HOST || '',
-        port: process.env.REDIS_PORT || 6793
+        url: process.env.REDIS_DSN || ''
     }
 } );
 
