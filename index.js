@@ -1,8 +1,17 @@
 const { Server } = require( './src' );
+const cors = require( 'cors' );
 
-const server = new Server( {
-    jwtKey: '!UnsecureChangeMe!',
-    path: '/.well-known/mercure',
+class App extends Server
+{
+    configure ()
+    {
+        this.app.use( cors() );
+    }
+}
+
+const server = new App( {
+    jwtKey: '!ChangeMe!',
+    path: '/rocket',
     redis: {
         url: process.env.REDIS_DSN || ''
     }

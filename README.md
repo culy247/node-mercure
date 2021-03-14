@@ -104,7 +104,7 @@ const server = http.createServer((req, res) => {
 
 const hub = new Hub(server, {
   jwtKey: '!UnsecureChangeMe!',
-  path: '/.well-known/mercure',
+  path: '/rocket',
 });
 
 hub.listen(3000);
@@ -128,7 +128,7 @@ const { Server } = require('mercure');
 
 const server = new Server({
   jwtKey: '!UnsecureChangeMe!',
-  path: '/.well-known/mercure',
+  path: '/rocket',
 });
 
 server.listen(3000);
@@ -170,7 +170,7 @@ const publisher = new Publisher({
   protocol: 'https', // or 'http', but please don't.
   host: 'example.com',
   port: 3000,
-  path: '/.well-known/mercure',
+  path: '/rocket',
   jwt: 'PUBLISHER_JWT',
 });
 
