@@ -6,6 +6,7 @@ class App extends Server
     configure ()
     {
         this.app.use( cors() );
+        this.app.use( '/', function ( req, res ) { res.send( 'hellop' ); } );
     }
 }
 
