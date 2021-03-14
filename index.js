@@ -18,7 +18,7 @@ const server = new App( {
     path: process.env.HUB || '/hub',
     allowAnonymous: false, // Don't force subscriber authorization.
     maxTopics: 0,
-    ignorePublisherId: true,
+    ignorePublisherId: false,
     publishAllowedOrigins: null,
     redis: {
         url: process.env.REDIS_DSN || ''

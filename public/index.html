@@ -51,10 +51,10 @@
     <script>
         ( function ( $ )
         {
-            var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InN1YmNyaWFibGUiOlsiKiJdLCJwdWJsaXNoIjpbIm1lc3NhZ2UiXX19.6sv8U4RqNLQ2VhEE8AGOAf57Jya62WhNCoUZeYduc7g';
+            var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InB1Ymxpc2giOlsiKiJdLCJzdWJzY3JpYmUiOlsiKiJdfX0.4DUMumRBcwown63lKUecQcFxGAr8Dg2vwpSuKfAoKcs';
             var hub = '/hub';
             var topic = 'message';
-            var event = new EventSourcePolyfill( hub + '?topic=' + topic, {
+            var event = new EventSourcePolyfill( hub + '?topic=' + topic + '&topic=subscribe', {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
@@ -62,11 +62,13 @@
 
             var listener = function ( e )
             {
-                $( 'main' ).append( '<pre>' + JSON.stringify( e ) + '<pre>' );
+                console.log( e )
+                $( 'main' ).append( '<div><pre>' + ( e.data || '' ) + '<pre></div>' );
             };
 
             event.addEventListener( "open", listener );
             event.addEventListener( "message", listener );
+            event.addEventListener( "subscribe", listener );
             event.addEventListener( "error", listener );
 
             function post()
@@ -77,9 +79,10 @@
 
                     data: {
                         topic: 'message',
-                        data: {
+                        targets: [ 'message' ],
+                        data: JSON.stringify( {
                             time: ( new Date ).getTime()
-                        }
+                        } )
                     },
                     headers: {
                         'Authorization': 'Bearer ' + token,

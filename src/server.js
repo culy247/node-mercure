@@ -18,6 +18,7 @@ function publishEndpointHandler ()
             claims = await hub.authorizePublish( req );
         } catch ( err )
         {
+            console.log( e );
             return res.status( 401 ).send( 'Unauthorized' );
         }
         if ( !claims )
@@ -53,17 +54,19 @@ function publishEndpointHandler ()
         }
 
         const { allTargetsAuthorized, authorizedTargets } = getAuthorizedTargets( claims, true );
-
-        const targetsArray = Array.isArray( targets ) ? targets : [ targets ];
-
-        // Checking if all targets are authorized.
-        for ( const target of targetsArray )
+        if ( targets )
         {
-            if ( !allTargetsAuthorized )
+            const targetsArray = Array.isArray( targets ) ? targets : [ targets ];
+            console.log( targetsArray, allTargetsAuthorized, authorizedTargets );
+            // Checking if all targets are authorized.
+            for ( const target of targetsArray )
             {
-                if ( !authorizedTargets.includes( target ) )
+                if ( !allTargetsAuthorized )
                 {
-                    return res.status( 401 ).send( 'Unauthorized' );
+                    if ( !authorizedTargets.includes( target ) )
+                    {
+                        return res.status( 401 ).send( 'Unauthorized' );
+                    }
                 }
             }
         }

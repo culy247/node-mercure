@@ -75,6 +75,7 @@ class Hub extends EventEmitter
     {
         return authorize( req, this.config.pubJwtKey || this.config.jwtKey, this.config.publishAllowedOrigins );
     }
+
     authorizeSubscribe ( req )
     {
         return authorize( req, this.config.subJwtKey || this.config.jwtKey, this.config.publishAllowedOrigins );
@@ -133,7 +134,6 @@ class Hub extends EventEmitter
                     templates.push( uriTemplates( topic ) );
                 } catch ( err )
                 {
-                    console.error( err );
                     client.res.writeHead( 400 );
                     client.res.write( `${ topic } is not a valid URI template (RFC6570)` );
                     client.res.end();
@@ -168,6 +168,7 @@ class Hub extends EventEmitter
 
     async listen ( port, addr = '0.0.0.0' )
     {
+        let me = this;
         if ( !port || !Number.isInteger( port ) )
         {
             throw new Error( 'Invalid port', port );
@@ -177,33 +178,36 @@ class Hub extends EventEmitter
         {
             try
             {
-                this.server.listen( port, addr, resolve );
+                me.server.listen( port, addr, resolve );
             } catch ( err )
             {
                 reject( err );
             }
         } );
 
-        const sse = new SSE( this.server, {
-            path: this.config.path,
-            verifyRequest: ( req ) => req.url.startsWith( this.config.path ) && ( req.method === 'GET' || req.method === 'HEAD' || req.method === 'OPTIONS' )
+        const sse = new SSE( me.server, {
+            path: me.config.path,
+            verifyRequest: ( req ) => req.url.startsWith( me.config.path ) && ( req.method === 'GET' || req.method === 'HEAD' || req.method === 'OPTIONS' )
         } );
 
-        this.history.on( 'update', async ( update ) =>
+        me.history.on( 'update', async ( update ) =>
         {
             const subscribers = this.subscribers.getList().filter( subscriber => subscriber.canReceive( update ) );
-
             for ( const subscriber of subscribers )
             {
+
                 subscriber.sendAsync( update );
             }
 
             this.emit( 'publish', update, update.event.id );
         } );
 
-        await this.history.start();
+        await me.history.start();
 
-        sse.on( 'connection', this.onSseConnection );
+        sse.on( 'connection', function ( client, { topic: topics, 'Last-Event-ID': queryLastEventId } )
+        {
+            me.onSseConnection( client, { topic: topics, 'Last-Event-ID': queryLastEventId } );
+        } );
     }
 
     async dispatchUpdate ( topics, data, opts = {} )
