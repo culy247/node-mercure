@@ -37,6 +37,8 @@ function publishEndpointHandler ()
             return res.status( 400 ).send( 'Missing "data" parameter in body' );
         }
 
+        const topics = [].concat(topic);
+
         if ( hub.config.maxTopics > 0 && topics.length > hub.config.maxTopics )
         {
             return res.status( 400 ).send( `Exceeded limit of ${ hub.config.maxTopics } topics` );

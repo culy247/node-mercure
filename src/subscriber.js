@@ -1,5 +1,4 @@
 const { v4: uuidv4 } = require( 'uuid' );
-
 class Subscriber
 {
     constructor ( sseClient, allTargetsAuthorized, authorizedTargets, topics, lastEventId )
